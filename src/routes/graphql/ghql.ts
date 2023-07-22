@@ -72,6 +72,8 @@ const RootQuery = new GraphQLObjectType({
         id: { type: new GraphQLNonNull(UUIDType) },
       },
       async resolve(source, args: { id: string }) {
+        console.log('!!!!!!!!!!!!!!!', args);
+
         const user = await prisma.user.findUnique({
           where: { id: args.id },
         });

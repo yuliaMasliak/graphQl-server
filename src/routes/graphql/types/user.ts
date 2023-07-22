@@ -1,8 +1,9 @@
 import { PrismaClient } from '@prisma/client';
-import graphql, { GraphQLFloat, GraphQLList } from 'graphql';
+import graphql, { GraphQLEnumType, GraphQLFloat, GraphQLList } from 'graphql';
 import { UUIDType } from './uuid.js';
 import { profileType } from './profile.js';
 import { postType } from './post.js';
+import { memberType } from './member.js';
 
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull } = graphql;
 
