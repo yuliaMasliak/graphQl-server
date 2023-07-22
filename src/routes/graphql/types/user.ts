@@ -14,22 +14,22 @@ export const userType = new GraphQLObjectType({
     id: { type: new GraphQLNonNull(UUIDType) },
     name: { type: GraphQLString },
     balance: { type: GraphQLFloat },
-    // profile: {
-    //   type: profileType,
-    //   async resolve(user: { id: string }) {
-    //     const profile = await prisma.profile.findUnique({
-    //       where: { userId: user.id },
-    //     });
-    //     return profile;
-    //   },
-    // },
-    // posts: {
-    //   type: new GraphQLList(postType),
-    //   async resolve(user: { id: string }) {
-    //     return await prisma.post.findMany({
-    //       where: { authorId: user.id },
-    //     });
-    //   },
-    // },
+    profile: {
+      type: profileType,
+      async resolve(user: { id: string }) {
+        const profile = await prisma.profile.findUnique({
+          where: { userId: user.id },
+        });
+        return profile;
+      },
+    },
+    posts: {
+      type: new GraphQLList(postType),
+      async resolve(user: { id: string }) {
+        return await prisma.post.findMany({
+          where: { authorId: user.id },
+        });
+      },
+    },
   }),
 });

@@ -55,9 +55,14 @@ const RootQuery = new GraphQLObjectType({
         id: { type: new GraphQLNonNull(UUIDType) },
       },
       async resolve(source, args: { id: string }) {
+        const { id } = args;
+        console.log(args);
+
         const post = await prisma.post.findUnique({
-          where: { id: args.id },
+          where: { id },
         });
+        console.log(post);
+
         return post;
       },
     },
