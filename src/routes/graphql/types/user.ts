@@ -1,12 +1,17 @@
 import { PrismaClient } from '@prisma/client';
-import graphql, { GraphQLEnumType, GraphQLFloat, GraphQLList } from 'graphql';
+import graphql from 'graphql';
+
 import { UUIDType } from './uuid.js';
 import { profileType } from './profile.js';
 import { postType } from './post.js';
-import { memberType } from './member.js';
-
-const { GraphQLObjectType, GraphQLString, GraphQLNonNull } = graphql;
-
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLNonNull,
+  GraphQLFloat,
+  GraphQLList,
+  GraphQLInputObjectType,
+} = graphql;
 const prisma = new PrismaClient();
 
 export const userType = new GraphQLObjectType({
@@ -32,6 +37,7 @@ export const userType = new GraphQLObjectType({
         });
       },
     },
+
     userSubscribedTo: {
       type: new GraphQLList(userType),
       async resolve(user: { id: string }) {

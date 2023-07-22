@@ -1,11 +1,24 @@
-import { PrismaClient } from '@prisma/client';
-import graphql, { GraphQLBoolean, GraphQLInt } from 'graphql';
+import graphql from 'graphql';
 import { UUIDType } from './uuid.js';
-import { memberType } from './member.js';
-
-const { GraphQLObjectType, GraphQLNonNull } = graphql;
+import { memberType, memberTypeIdEnum } from './member.js';
+const {
+  GraphQLObjectType,
+  GraphQLInt,
+  GraphQLNonNull,
+  GraphQLBoolean,
+  GraphQLInputObjectType,
+} = graphql;
+import { MemberType, PrismaClient } from '@prisma/client';
+import { MemberTypeId } from '../../member-types/schemas.js';
 
 const prisma = new PrismaClient();
+
+export type DtoProfileType = {
+  isMale: boolean;
+  yearOfBirth: number;
+  memberTypeId: MemberTypeId;
+  userId: string;
+};
 
 export const profileType = new GraphQLObjectType({
   name: 'Profile',
@@ -16,10 +29,10 @@ export const profileType = new GraphQLObjectType({
     userId: { type: UUIDType },
 
     memberType: {
-      type: new GraphQLNonNull(memberType),
-      async resolve(profile: { MemberTypeId: string }) {
-        return await prisma.profile.findUnique({
-          where: { id: profile.MemberTypeId },
+      type: memberType,
+      async resolve(profile: { memberTypeId: string }) {
+        return await prisma.memberType.findUnique({
+          where: { id: profile.memberTypeId },
         });
       },
     },
