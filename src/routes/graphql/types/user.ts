@@ -32,5 +32,37 @@ export const userType = new GraphQLObjectType({
         });
       },
     },
+    userSubscribedTo: {
+      type: new GraphQLList(userType),
+      async resolve(user: { id: string }) {
+        const indexes = await prisma.subscribersOnAuthors.findMany({
+          where: { subscriberId: user.id },
+        });
+
+        return await prisma.user.findMany({
+          where: {
+            id: {
+              in: indexes.map((user) => user.authorId),
+            },
+          },
+        });
+      },
+    },
+    subscribedToUser: {
+      type: new GraphQLList(userType),
+      async resolve(user: { id: string }) {
+        const indexes = await prisma.subscribersOnAuthors.findMany({
+          where: { authorId: user.id },
+        });
+
+        return await prisma.user.findMany({
+          where: {
+            id: {
+              in: indexes.map((user) => user.subscriberId),
+            },
+          },
+        });
+      },
+    },
   }),
 });
