@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import graphql from 'graphql';
+import graphql, { GraphQLInt } from 'graphql';
 
 import { UUIDType } from './uuid.js';
 import { profileType } from './profile.js';
@@ -70,5 +70,20 @@ export const userType = new GraphQLObjectType({
         });
       },
     },
+  }),
+});
+
+export const CreateUserInput = new GraphQLInputObjectType({
+  name: 'CreateUserInput',
+  fields: () => ({
+    name: { type: new GraphQLNonNull(GraphQLString) },
+    balance: { type: GraphQLFloat },
+  }),
+});
+export const ChangeUserInput = new GraphQLInputObjectType({
+  name: 'ChangeUserInput',
+  fields: () => ({
+    name: { type: GraphQLString },
+    balance: { type: GraphQLFloat },
   }),
 });

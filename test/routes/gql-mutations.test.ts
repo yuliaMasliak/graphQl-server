@@ -39,6 +39,7 @@ await test('gql-mutations', async (t) => {
             id
         }
     }`,
+
       variables: {
         userDto: genCreateUserDto(),
         postDto: genCreatePostDto(user1.id),

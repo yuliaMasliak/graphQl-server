@@ -1,5 +1,5 @@
 //import { PrismaClient } from '@prisma/client';
-import graphql, { GraphQLInt } from 'graphql';
+import graphql, { GraphQLFloat, GraphQLInt } from 'graphql';
 import { MemberTypeId } from '../../member-types/schemas.js';
 
 const { GraphQLObjectType, GraphQLEnumType, GraphQLNonNull } = graphql;
@@ -18,7 +18,7 @@ export const memberType = new GraphQLObjectType({
   name: 'Member',
   fields: () => ({
     id: { type: new GraphQLNonNull(memberTypeIdEnum) },
-    discount: { type: GraphQLInt },
+    discount: { type: GraphQLFloat },
     postsLimitPerMonth: { type: GraphQLInt },
   }),
 });

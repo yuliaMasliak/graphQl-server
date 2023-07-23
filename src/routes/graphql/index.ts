@@ -24,7 +24,7 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
         contextValue: { prisma },
         variableValues: variables,
       });
-      console.log(result);
+      console.log('Result!!!!!!!!!!!!!!!!!!!!!!!  ', result);
       return result;
     },
   });
